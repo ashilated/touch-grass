@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -16,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import prisma from "@/lib/prisma"
 import Link from "next/link";
+import {redirect} from "next/navigation";
 
 export function SignupForm({
   className,
@@ -35,6 +35,8 @@ export function SignupForm({
                 password
             }
         })
+
+        redirect("/login")
 
     }
   return (
