@@ -1,13 +1,22 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
 
-  - You are about to drop the column `content` on the `Post` table. All the data in the column will be lost.
-  - Added the required column `image` to the `Post` table without a default value. This is not possible if the table is not empty.
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
-*/
--- AlterTable
-ALTER TABLE "Post" DROP COLUMN "content",
-ADD COLUMN     "image" TEXT NOT NULL;
+-- CreateTable
+CREATE TABLE "Post" (
+    "id" SERIAL NOT NULL,
+    "title" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+    "authorId" INTEGER NOT NULL,
+
+    CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Garden" (
@@ -20,6 +29,7 @@ CREATE TABLE "Garden" (
 -- CreateTable
 CREATE TABLE "Plant" (
     "id" SERIAL NOT NULL,
+    "imageUrl" TEXT NOT NULL,
     "pos" INTEGER NOT NULL,
     "type" TEXT NOT NULL,
     "gardenId" INTEGER NOT NULL,
@@ -28,10 +38,16 @@ CREATE TABLE "Plant" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Garden_userId_key" ON "Garden"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Plant_gardenId_key" ON "Plant"("gardenId");
+
+-- AddForeignKey
+ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Garden" ADD CONSTRAINT "Garden_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
