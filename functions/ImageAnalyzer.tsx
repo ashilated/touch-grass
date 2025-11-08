@@ -1,8 +1,8 @@
 import exifr from 'exifr'
 
-export default async function ImageAnalyzer() {
+export default async function ImageAnalyzer(image: File) {
     try {
-        const {latitude, longitude} = await exifr.gps('https://github.com/ianare/exif-samples/blob/master/jpg/Canon_40D_photoshop_import.jpg?raw=true')
+        const {latitude, longitude} = await exifr.gps(image)
         console.log(latitude, longitude)
     } catch (error) {
         console.log("no metadata for this image")
