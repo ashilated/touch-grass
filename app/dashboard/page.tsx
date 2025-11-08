@@ -3,6 +3,7 @@ import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
 import {Button} from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Dashboard() {
     const cookieStore = await cookies()
@@ -61,7 +62,7 @@ export default async function Dashboard() {
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                         {/* Upload New Image Card */}
                         <Button className="aspect-square bg-white rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity shadow-sm w-full h-full">
-                            <span className="text-xs sm:text-sm text-emerald-700">Upload Image</span>
+                            <Link href="/upload" className="text-xs sm:text-sm text-emerald-700 inline-flex items-center justify-center">Upload Image</Link>
                         </Button>
 
                         {/* User Images */}
