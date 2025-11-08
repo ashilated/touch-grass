@@ -1,4 +1,3 @@
-'use client'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,16 +14,28 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import prisma from "@/lib/prisma"
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-
     async function createUserAccount(formData: FormData) {
+        'use server'
+
+        const name = formData.get("name") as string
+        const username = formData.get("username") as string
+        const password = formData.get("password") as string
+
+        await prisma.user.create({
+            data: {
+                name,
+                username,
+                password
+            }
+        })
 
     }
-
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -36,12 +47,13 @@ export function SignupForm({
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="name">Name</FieldLabel>
-                <Input id="name" type="text" placeholder="John" required />
+                <Input id="name" name="name" type="text" placeholder="John" required />
               </Field>
               <Field>
                 <FieldLabel htmlFor="username">Username</FieldLabel>
                 <Input
                   id="username"
+                  name="username"
                   type="text"
                   placeholder="john123"
                   required
@@ -51,7 +63,7 @@ export function SignupForm({
                 <Field>
                   <Field>
                     <FieldLabel htmlFor="password">Password</FieldLabel>
-                    <Input id="password" type="password" required />
+                    <Input id="password" name="password" type="password" required />
                   </Field>
                 </Field>
               </Field>
