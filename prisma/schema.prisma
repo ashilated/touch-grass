@@ -20,6 +20,7 @@ model User {
   password String
   name  String
   posts Post[]
+  garden Garden?
 }
 
 model Post {
@@ -28,4 +29,19 @@ model Post {
   image   String
   authorId  Int
   author    User    @relation(fields: [authorId], references: [id])
+}
+
+model Garden {
+  id        Int     @id @default(autoincrement())
+  plants Plant[]
+  userId Int @unique
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Plant {
+  id Int     @id @default(autoincrement())
+  pos Int
+  type String
+  gardenId Int @unique
+  garden Garden @relation(fields: [gardenId], references: [id])
 }
