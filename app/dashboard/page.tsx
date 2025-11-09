@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import {Post} from "@/app/generated/prisma";
+import { Post } from "@/app/generated/prisma";
 
 export default async function Dashboard() {
     const cookieStore = await cookies()
@@ -14,7 +14,7 @@ export default async function Dashboard() {
     }
 
     const user = await prisma.user.findUnique({
-        where: { id: parseInt(userId.value) }
+        where: { id: userId.value }
     })
 
     if (!user) {
@@ -22,7 +22,7 @@ export default async function Dashboard() {
     }
 
     const posts = await prisma.user.findUnique({
-        where: { id: parseInt(userId.value) }
+        where: { id: userId.value }
     }).posts()
 
 
@@ -73,7 +73,7 @@ export default async function Dashboard() {
                                 {/* Replace with actual images */}
                                 <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">
                                     📷<h2>{post.title}</h2>
-                                        <Image src={post.image} alt="user image" width={400} height={400}/>
+                                    <Image src={post.image} alt="user image" width={400} height={400} />
                                 </div>
                             </div>
                         ))}
