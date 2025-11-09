@@ -10,11 +10,11 @@ export default async function Home() {
                 <div className="flex flex-col items-center justify-center min-h-screen">
                     {/* Main Content */}
                     <div className="text-center space-y-8 max-w-3xl">
-                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight">
+                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-emerald-600 hover:text-emerald-700 tracking-tight">
                             Touch Grass
                         </h1>
 
-                        <p className="text-xl sm:text-2xl text-green-800 max-w-2xl mx-auto">
+                        <p className="text-xl sm:text-2xl text-green-800 hover:text-emerald-700 max-w-2xl mx-auto">
                             A gamified social site to share your adventures while competing with friends to grow the best garden.
                         </p>
 

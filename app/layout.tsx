@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import Image from 'next/image'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,13 +36,19 @@ export default function RootLayout({
         {/* ===== HEADER ===== */}
         <header className="bg-green-50 shadow-sm w-full fixed top-0 z-30 px-2">
           <div className="max-w-5xl mx-auto flex items-center justify-between px-.5 py-2">
-            {/* Logo / Brand */}
-            <Link
-              href="/"
-              className="text-lg font-semibold text-emerald-600 hover:text-emerald-700"
-            >
-              🌿 Touch Grass
-            </Link>
+              <Link
+                  href="/"
+                  className="text-lg font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-2"
+              >
+                  <Image
+                      src="/favicon.ico"
+                      alt="Touch Grass"
+                      width={24}
+                      height={24}
+                      className="w-6 h-6 mb-1"
+                  />
+                  Touch Grass
+              </Link>
 
             {/* --- Mobile Menu --- */}
             <div className="sm:hidden">
@@ -52,7 +59,6 @@ export default function RootLayout({
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-48 bg-white">
-                  {/* ✅ Add this to remove the warning */}
                   <VisuallyHidden>
                     <SheetTitle>Site navigation menu</SheetTitle>
                   </VisuallyHidden>
