@@ -1,7 +1,19 @@
 import Image from "next/image";
 
-export default function Plant(url: string) {
+export default function Plant(props: {name: string, plant: string}) {
+    const name = props.name
+    const plant = props.plant
+
     return (
-        <Image src={url} alt="flower" width={48} height={48}/>
+        <div className="relative w-24 sm:w-32">
+            <Image
+                className="w-full h-auto object-contain drop-shadow-lg"
+                src={plant}
+                alt={name}
+                width={128}
+                height={192}
+                unoptimized
+            />
+        </div>
     )
 }
