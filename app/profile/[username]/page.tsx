@@ -1,5 +1,7 @@
 import prisma from "@/lib/prisma";
 import Image from "next/image";
+import Link from "next/link";
+import {Button} from "@/components/ui/button";
 
 export default async function ProfilePage({
                                               params,
@@ -34,9 +36,9 @@ export default async function ProfilePage({
             <div className="max-w-5xl mx-auto px-0 sm:px-8 lg:px-16">
                 {/* Banner Section */}
                 <div className="relative">
-                    <div className="w-full h-32 sm:h-48 bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center text-white text-base sm:text-lg font-medium">
-                        {user.name}&#39;s Garden
-                    </div>
+                    <Button className="w-full h-32 sm:h-48 bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center text-white text-base sm:text-lg font-medium">
+                        <Link href={`/profile/${username}/garden`}>{user.name}&#39;s Garden</Link>
+                    </Button>
 
                     {/* Profile Picture */}
                     <div className="absolute -bottom-12 sm:-bottom-16 left-4 sm:left-8">
