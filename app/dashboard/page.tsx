@@ -59,7 +59,7 @@ export default async function DashboardPage() {
                         {/* Upload New Image */}
                         <Link
                             href="/upload"
-                            className="aspect-rectangle bg-white rounded-lg flex items-center justify-center text-emerald-600 border border-emerald-200 hover:bg-emerald-50 transition"
+                            className="aspect-rectangle sm:aspect-square bg-white rounded-lg flex items-center justify-center text-emerald-600 border border-emerald-200 hover:bg-emerald-50 transition"
                         >
                             <span className="text-sm sm:text-base font-medium">
                                 + Upload Image
