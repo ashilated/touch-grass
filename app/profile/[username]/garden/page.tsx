@@ -38,7 +38,7 @@ export default async function GardenPage({
     return (
         <>
             {/* Mobile View */}
-            <div className="md:hidden h-screen flex flex-col overflow-hidden">
+            <div className="md:hidden flex flex-col overflow-hidden" style={{ height: 'calc(100vh - 3rem)' }}>
                 {/* Header - Fixed at top */}
                 <div className="bg-emerald-100 px-4 py-4 z-10 flex-shrink-0">
                     <Link
@@ -51,7 +51,7 @@ export default async function GardenPage({
                         {user.name}&#39;s Garden
                     </h1>
                     <p className="text-gray-600 text-sm">@{user.username}</p>
-                    <p className="text-gray-500 text-xs mt-1">
+                    <p className="text-green-800 text-xs mt-1">
                         {plants.length} {plants.length === 1 ? "plant" : "plants"}
                     </p>
                 </div>
@@ -61,7 +61,7 @@ export default async function GardenPage({
             </div>
 
             {/* Desktop View */}
-            <div className="hidden md:flex md:flex-col h-screen overflow-hidden">
+            <div className="hidden md:flex md:flex-col overflow-hidden" style={{ height: 'calc(100vh - 3rem)' }}>
                 {/* Header - Fixed at top */}
                 <div className="bg-emerald-100 px-8 py-6 z-10 flex-shrink-0">
                     <Link
@@ -74,7 +74,7 @@ export default async function GardenPage({
                         {user.name}&#39;s Garden
                     </h1>
                     <p className="text-gray-600 text-sm">@{user.username}</p>
-                    <p className="text-gray-500 text-sm mt-1">
+                    <p className="text-green-800 text-sm mt-1">
                         {plants.length} {plants.length === 1 ? "plant" : "plants"}
                     </p>
                 </div>

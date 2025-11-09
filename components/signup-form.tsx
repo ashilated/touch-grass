@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import prisma from "@/lib/prisma"
 import Link from "next/link";
 import {redirect} from "next/navigation";
+import React from "react";
 export function SignupForm({
   className,
   ...props
@@ -47,10 +48,12 @@ export function SignupForm({
     }
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl">Create your account</CardTitle>
-        </CardHeader>
+      <Card className="w-full max-w-md bg-white/90 shadow-lg rounded-2xl border-none">
+          <CardHeader className="text-center">
+              <CardTitle className="text-3xl font-semibold text-green-900">
+                  Sign Up
+              </CardTitle>
+          </CardHeader>
         <CardContent>
           <form action={createUserAccount}>
             <FieldGroup>
@@ -79,7 +82,7 @@ export function SignupForm({
               <Field>
                 <Button type="submit">Create Account</Button>
                 <FieldDescription className="text-center">
-                  Already have an account? <Link href="/">Sign in</Link>
+                  Already have an account? <Link href="/login">Sign in</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

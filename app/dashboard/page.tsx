@@ -12,14 +12,14 @@ export default async function DashboardPage() {
 
     const user = await prisma.user.findUnique({
         where: { id: userId.value },
-        include: { posts: true },
+        include: { posts: true, garden: {include:{plants: true}}},
     });
 
     if (!user) redirect("/login");
 
     return (
         <div className="min-h-screen bg-emerald-100">
-            <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-16">
+            <div className="max-w-5xl mx-auto">
                 {/* --- Banner --- */}
                 <div className="relative">
                     <Link href={`/profile/${user.username}/garden`} className="w-full w-min-56 h-32 sm:h-48 bg-[url('garden_bg.webp')] bg-cover bg-center rounded-none flex items-end justify-end p-2 text-white text-lg sm:text-xl font-semibold shadow-sm">
@@ -71,18 +71,17 @@ export default async function DashboardPage() {
                             user.posts.map((post) => (
                                 <div
                                     key={post.id}
-                                    className="relative aspect-square rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
+                                    className="relative rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
                                 >
                                     <Image
                                         src={post.image}
                                         alt={post.title}
                                         width={500}
                                         height={500}
-                                        className="size-full sm:h-60 object-cover"
+                                        className="w-full h-full object-cover"
                                     />
-
                                     <div className="absolute bottom-0 left-0 w-full px-2 py-1 sm:px-3 sm:py-2">
-                                        <h3 className="text-white text-xs sm:text-sm font-medium truncate text-center drop-shadow-md">
+                                        <h3 className="text-white text-xs sm:text-md font-medium truncate text-center drop-shadow-md">
                                             {post.title}
                                         </h3>
                                     </div>

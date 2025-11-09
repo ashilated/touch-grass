@@ -131,14 +131,7 @@ export default function GardenScroll({ plants }: { plants: PlantWithType[] }) {
                 </div>
 
                 {plants.length === 0 ? (
-                    <div className="h-full w-[200vw] flex items-center justify-center px-4 relative z-10">
-                        <div className="text-center">
-                            <p className="text-white text-lg drop-shadow-lg">No plants in garden yet.</p>
-                            <p className="text-white/80 text-sm mt-2 drop-shadow">
-                                Start posting to grow your garden!
-                            </p>
-                        </div>
-                    </div>
+                    <div></div>
                 ) : (
                     <div className="h-full relative" style={{ minWidth: '200vw' }}>
                         {plants.map((plant, index) => {

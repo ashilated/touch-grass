@@ -37,8 +37,8 @@ export default function UploadPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-green-100">
-            <div className="p-6 border rounded-2xl shadow-sm bg-background w-full max-w-md bg-green-200">
+        <div className="min-h-screen flex items-center justify-center bg-emerald-100">
+            <div className="p-6 border rounded-2xl shadow-sm w-full max-w-md bg-green-200">
                 <h1 className="text-2xl font-semibold mb-4 text-center">Upload</h1>
 
                 <form onSubmit={handleSubmit} className="space-y-4">

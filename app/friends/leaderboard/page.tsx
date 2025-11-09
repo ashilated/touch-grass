@@ -62,11 +62,11 @@ export default async function FriendsLeaderboardPage() {
     const getRankColor = (rank: number) => {
         switch (rank) {
             case 1:
-                return "text-yellow-500 drop-shadow-sm"; // 🥇 Gold
+                return "text-yellow-500 drop-shadow-sm";
             case 2:
-                return "text-gray-400 drop-shadow-sm"; // 🥈 Silver
+                return "text-gray-400 drop-shadow-sm";
             case 3:
-                return "text-amber-700 drop-shadow-sm"; // 🥉 Bronze
+                return "text-amber-700 drop-shadow-sm";
             default:
                 return "text-emerald-700";
         }
@@ -75,31 +75,23 @@ export default async function FriendsLeaderboardPage() {
     return (
         <div className="min-h-screen bg-emerald-100 py-10">
             <div className="max-w-4xl mx-auto px-4 sm:px-8">
-                <h1 className="text-3xl font-bold text-emerald-800 mb-8 text-center">
-                    Friends Leaderboard
-                </h1>
+                <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Friends Leaderboard</h1>
 
                 <Card className="shadow-md border border-emerald-200">
-                    <CardHeader>
-                        <CardTitle className="text-xl text-emerald-700">
-                            Top Gardeners
-                        </CardTitle>
-                    </CardHeader>
-
                     <CardContent>
                         <div className="divide-y divide-emerald-100">
                             {leaderboard.map((person, index) => (
                                 <Link
                                     key={person.id}
                                     href={`/profile/${person.username}`}
-                                    className={`flex items-center justify-between p-4 rounded-lg transition-all transform ${person.username === user.username
-                                        ? "bg-emerald-200/80 font-semibold"
-                                        : "hover:bg-emerald-50 hover:scale-[1.01]"
-                                        }`}
+                                    className={`flex items-center justify-between gap-4 p-4 rounded-lg transition-all transform ${person.username === user.username
+                                        ? "bg-green-200 font-semibold"
+                                        : "hover:bg-green-100 hover:scale-[1.01]"
+                                    }`}
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-4 min-w-0 flex-1">
                                         <span
-                                            className={`w-6 text-lg font-bold text-right ${getRankColor(
+                                            className={`w-6 text-lg font-bold text-right flex-shrink-0 ${getRankColor(
                                                 index + 1
                                             )}`}
                                         >
@@ -110,17 +102,17 @@ export default async function FriendsLeaderboardPage() {
                                             alt={`${person.username}'s profile picture`}
                                             width={40}
                                             height={40}
-                                            className="rounded-full object-cover border border-emerald-300"
+                                            className="rounded-full object-cover flex-shrink-0"
                                         />
-                                        <div>
-                                            <p className="text-gray-900">{person.name}</p>
-                                            <p className="text-sm text-gray-500">
+                                        <div className="min-w-0 flex-1">
+                                            <p className="text-gray-900 truncate">{person.name}</p>
+                                            <p className="text-sm text-gray-500 truncate">
                                                 @{person.username}
                                             </p>
                                         </div>
                                     </div>
-                                    <span className="text-emerald-700 font-bold">
-                                        {person.plantCount} plants
+                                    <span className="text-emerald-700 font-bold flex-shrink-0 whitespace-nowrap">
+                                        {person.plantCount} {person.plantCount === 1 ? 'plant' : 'plants'}
                                     </span>
                                 </Link>
                             ))}

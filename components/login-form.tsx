@@ -44,7 +44,7 @@ export function LoginForm({
     <div className={cn("min-h-screen flex items-center justify-center bg-emerald-200", className)} {...props}>
       <Card className="w-full max-w-md bg-white/90 shadow-lg rounded-2xl border-none">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-semibold text-green-800">
+          <CardTitle className="text-3xl font-semibold text-green-900">
               Log In
           </CardTitle>
         </CardHeader>

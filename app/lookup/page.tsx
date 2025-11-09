@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import AddFriend from "@/functions/AddFriend";
+import Link from "next/link";
 
 // --- helper to get the logged-in user ---
 async function getUserFromCookies() {
@@ -18,7 +19,7 @@ async function getUserFromCookies() {
 
 // --- server action wrapper ---
 async function addFriendWrapper(formData: FormData) {
-    "use server"; // ✅ This marks it as a server action
+    "use server";
 
     const friendName = formData.get("friendName") as string;
     const friendUsername = formData.get("friendUsername") as string;
@@ -59,49 +60,58 @@ export default async function LookupPage({
     const friendUsernames = friends.map((f) => f.friendUsername);
 
     return (
-        <div className="max-w-2xl mx-auto p-8 space-y-6">
-            <h1 className="text-2xl font-bold">🔍 Friend Lookup</h1>
+        <div className="min-h-screen bg-emerald-100">
+            <div className="max-w-2xl mx-auto p-8 space-y-6">
+                <h1 className="text-2xl sm:text-3xl font-bold text-center">Search For Users</h1>
 
-            <form className="flex gap-2">
-                <Input
-                    type="text"
-                    name="q"
-                    placeholder="Search by username..."
-                    defaultValue={query}
-                />
-                <Button type="submit">Search</Button>
-            </form>
+                <form className="flex gap-2">
+                    <Input
+                        type="text"
+                        name="q"
+                        placeholder="Search by username..."
+                        defaultValue={query}
+                        className="bg-white"
+                    />
+                    <Button type="submit">Search</Button>
+                </form>
 
-            {query && (
-                <div className="space-y-4 mt-6">
-                    <h2 className="text-lg font-semibold">Results for "{query}"</h2>
-                    {results.length === 0 && <p>No users found.</p>}
-                    {results.map((r) => (
-                        <form
-                            key={r.id}
-                            action={addFriendWrapper}
-                            className="flex justify-between items-center border p-3 rounded-lg"
-                        >
-                            <div>
-                                <p className="font-medium">{r.name}</p>
-                                <p className="text-sm text-gray-500">@{r.username}</p>
+                {query && (
+                    <div className="space-y-4 mt-6">
+                        <h2 className="text-lg font-semibold">Results for &#34;{query}&#34;</h2>
+                        {results.length === 0 && <p>No users found.</p>}
+                        {results.map((r) => (
+                            <div
+                                key={r.id}
+                                className="flex justify-between items-center border p-3 rounded-lg bg-white hover:bg-green-50"
+                            >
+                                {/* User info - clickable link */}
+                                <Link
+                                    href={`/profile/${r.username}`}
+                                    className="flex-1 min-w-0"
+                                >
+                                    <div>
+                                        <p className="font-medium hover:text-emerald-600">{r.name}</p>
+                                        <p className="text-sm text-gray-500">@{r.username}</p>
+                                    </div>
+                                </Link>
+
+                                {/* Add friend button - separate from link */}
+                                {friendUsernames.includes(r.username) ? (
+                                    <span className="text-green-600 font-medium flex-shrink-0 ml-4">✅ Added</span>
+                                ) : (
+                                    <form action={addFriendWrapper} className="flex-shrink-0 ml-4">
+                                        <input type="hidden" name="friendName" value={r.name} />
+                                        <input type="hidden" name="friendUsername" value={r.username} />
+                                        <Button type="submit" variant="secondary" className="bg-emerald-500 hover:bg-emerald-600 text-white">
+                                            Add
+                                        </Button>
+                                    </form>
+                                )}
                             </div>
-
-                            {friendUsernames.includes(r.username) ? (
-                                <span className="text-green-600 font-medium">✅ Added</span>
-                            ) : (
-                                <>
-                                    <input type="hidden" name="friendName" value={r.name} />
-                                    <input type="hidden" name="friendUsername" value={r.username} />
-                                    <Button type="submit" variant="secondary">
-                                        Add
-                                    </Button>
-                                </>
-                            )}
-                        </form>
-                    ))}
-                </div>
-            )}
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

@@ -16,7 +16,7 @@ export default async function FriendsPage() {
     return (
         <div className="min-h-screen bg-emerald-100 py-8">
             <div className="max-w-5xl mx-auto px-4 sm:px-8">
-                <h1 className="text-2xl sm:text-3xl font-bold mb-6">Friends</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6">Friends</h1>
 
                 {friends.length > 0 ? (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">

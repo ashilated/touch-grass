@@ -28,16 +28,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={geistMono.className}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-emerald-50 text-gray-900 antialiased min-h-screen flex flex-col`}
+        className={`bg-emerald-100 text-gray-900 antialiased min-h-screen flex flex-col`}
       >
         {/* ===== HEADER ===== */}
-        <header className="bg-green-50 shadow-sm sticky top-0 z-30">
+        <header className="bg-green-50 shadow-sm w-full fixed top-0 z-30 px-2">
           <div className="max-w-5xl mx-auto flex items-center justify-between px-.5 py-2">
             {/* Logo / Brand */}
             <Link
-              href="/dashboard"
+              href="/"
               className="text-lg font-semibold text-emerald-600 hover:text-emerald-700"
             >
               🌿 Touch Grass
@@ -82,19 +82,13 @@ export default function RootLayout({
                     >
                       Dashboard
                     </Link>
-                    <Link
-                      href="/upload"
-                      className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
-                    >
-                      Upload
-                    </Link>
                   </nav>
                 </SheetContent>
               </Sheet>
             </div>
 
             {/* --- Desktop Nav --- */}
-            <nav className="hidden sm:flex gap-3">
+            <nav className="hidden sm:flex">
                 <Link href="/friends/leaderboard">
                     <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
                         Leaderboard
@@ -111,16 +105,11 @@ export default function RootLayout({
                     </Button>
                 </Link>
               <Link href="/dashboard">
-                <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
-                  Dashboard
-                </Button>
-              </Link>
-              <Link href="/upload">
                 <Button
                   variant="default"
-                  className="bg-emerald-500 hover:bg-emerald-600 text-white"
+                  className="bg-emerald-500 hover:bg-emerald-600 text-white ml-2"
                 >
-                  Upload
+                  Dashboard
                 </Button>
               </Link>
             </nav>
@@ -128,14 +117,7 @@ export default function RootLayout({
         </header>
 
         {/* ===== MAIN CONTENT ===== */}
-        <main className="flex-1">{children}</main>
-
-        {/* ===== FOOTER ===== */}
-        <footer className="bg-white border-t border-gray-200">
-          <div className="max-w-5xl mx-auto px-4 py-4 text-center text-sm text-gray-500">
-            © {new Date().getFullYear()} Touch Grass — The social game for touching grass 🌱
-          </div>
-        </footer>
+        <main className="flex-1 pt-12">{children}</main>
       </body>
     </html>
   );
