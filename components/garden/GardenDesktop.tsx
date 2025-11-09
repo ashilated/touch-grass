@@ -81,7 +81,7 @@ export default function GardenDesktop({ plants }: { plants: PlantWithType[] }) {
                                     transformOrigin: 'bottom center',
                                 }}
                             >
-                                <Plant name={plant.id} plant={plant.plantType.imageUrl} />
+                                <Plant name={plant.plantType.plantRegion} plant={plant.plantType.imageUrl} />
                             </div>
                         );
                     })}
