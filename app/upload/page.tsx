@@ -1,16 +1,14 @@
 "use client";
 import { type PutBlobResult } from '@vercel/blob'
 import { upload } from '@vercel/blob/client'
-import {useState, ChangeEvent, FormEvent, useRef} from "react";
+import { useState, FormEvent, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import BlobToDB from "@/functions/BlobToDB";
-import UploadFile from "@/functions/UploadFile";
 import ImageAnalyzer from "@/functions/ImageAnalyzer";
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default function UploadPage() {
-    const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);

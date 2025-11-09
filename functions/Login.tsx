@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from "@/lib/prisma";
-import {cookies} from "next/headers";
+import { cookies } from "next/headers";
 
 
 export default async function Login(formData: FormData) {
@@ -19,5 +19,5 @@ export default async function Login(formData: FormData) {
     }
     console.log("logged in")
     const cookieStore = await cookies()
-    cookieStore.set("userId", user.id.toString(), {expires: 60 * 100 * 100})
+    cookieStore.set("userId", user.id.toString())
 }
