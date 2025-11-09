@@ -4,6 +4,30 @@ import PlantRegion = $Enums.PlantRegion;
 const prisma = new PrismaClient();
 
 export async function main() {
+    const testUser = await prisma.user.create({
+        data: {
+            username: "john123",
+            name: "John Vercel",
+            password: "test",
+            posts: {},
+            garden: {
+                create: {}
+            }
+        }
+    })
+
+    const testUser2 = await prisma.user.create({
+        data: {
+            username: "bob123",
+            name: "Bob Prisma",
+            password: "test",
+            posts: {},
+            garden: {
+                create: {}
+            }
+        }
+    })
+
     const bamboo = await prisma.plant.create({
         data: {
             imageUrl: "/plants/bamboo.png",
