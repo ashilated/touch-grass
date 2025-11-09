@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import AddFriend from "@/functions/AddFriend";
 
 // --- helper to get the logged-in user ---
 async function getUserFromCookies() {
@@ -16,14 +16,23 @@ async function getUserFromCookies() {
     return user;
 }
 
+// --- server action wrapper ---
+async function addFriendWrapper(formData: FormData) {
+    "use server"; // ✅ This marks it as a server action
+
+    const friendName = formData.get("friendName") as string;
+    const friendUsername = formData.get("friendUsername") as string;
+
+    await AddFriend(friendName, friendUsername);
+}
+
 // --- main page ---
 export default async function LookupPage({
-    searchParams,
-}: {
-    // ✅ in Next.js 15+, searchParams is a Promise
+                                             searchParams,
+                                         }: {
     searchParams: Promise<{ q?: string }>;
 }) {
-    const params = await searchParams; // ✅ unwrap the Promise
+    const params = await searchParams;
     const user = await getUserFromCookies();
 
     const query = params?.q?.trim() || "";
@@ -65,12 +74,12 @@ export default async function LookupPage({
 
             {query && (
                 <div className="space-y-4 mt-6">
-                    <h2 className="text-lg font-semibold">Results for “{query}”</h2>
+                    <h2 className="text-lg font-semibold">Results for "{query}"</h2>
                     {results.length === 0 && <p>No users found.</p>}
                     {results.map((r) => (
                         <form
                             key={r.id}
-                            action={addFriend}
+                            action={addFriendWrapper}
                             className="flex justify-between items-center border p-3 rounded-lg"
                         >
                             <div>
@@ -95,26 +104,4 @@ export default async function LookupPage({
             )}
         </div>
     );
-}
-
-// --- server action to add a friend ---
-async function addFriend(formData: FormData) {
-    "use server";
-
-    const cookieStore = cookies();
-    const userId = (await cookieStore).get("userId");
-    if (!userId) redirect("/login");
-
-    const friendName = formData.get("friendName") as string;
-    const friendUsername = formData.get("friendUsername") as string;
-
-    await prisma.friend.create({
-        data: {
-            userId: userId.value,
-            friendName,
-            friendUsername,
-        },
-    });
-
-    revalidatePath("/lookup");
 }

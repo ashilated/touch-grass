@@ -18,6 +18,5 @@ export default async function AddFriend(friendName: string, friendUsername: stri
         }
     })
 
-    // Revalidate the profile page to show updated friendship status
-    revalidatePath(`/profile/${friendUsername}`)
+   revalidatePath(`/profile/${friendUsername}`)
 }

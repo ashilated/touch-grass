@@ -50,7 +50,7 @@ export default async function FriendsPage() {
                     <div className="bg-white rounded-lg shadow-sm p-8 text-center">
                         <p className="text-gray-600 mb-4">No friends yet! Add some!</p>
                         <Link
-                            href="/search"
+                            href="/lookup"
                             className="inline-block bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
                         >
                             Find Friends

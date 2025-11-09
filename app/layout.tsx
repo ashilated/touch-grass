@@ -47,7 +47,7 @@ export default function RootLayout({
             <div className="sm:hidden">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button size="icon">
+                  <Button className="bg-white" size="icon">
                     <Menu className="h-5 w-5 text-emerald-700" />
                   </Button>
                 </SheetTrigger>
@@ -58,6 +58,24 @@ export default function RootLayout({
                   </VisuallyHidden>
 
                   <nav className="flex flex-col space-y-2 mt-6">
+                      <Link
+                          href="/friends/leaderboard"
+                          className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
+                      >
+                          Leaderboard
+                      </Link>
+                      <Link
+                          href="/lookup"
+                          className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
+                      >
+                          Search
+                      </Link>
+                      <Link
+                          href="/friends"
+                          className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
+                      >
+                          Friends
+                      </Link>
                     <Link
                       href="/dashboard"
                       className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
@@ -77,6 +95,21 @@ export default function RootLayout({
 
             {/* --- Desktop Nav --- */}
             <nav className="hidden sm:flex gap-3">
+                <Link href="/friends/leaderboard">
+                    <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
+                        Leaderboard
+                    </Button>
+                </Link>
+                <Link href="/lookup">
+                    <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
+                        Search
+                    </Button>
+                </Link>
+                <Link href="/friends">
+                    <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
+                        Friends
+                    </Button>
+                </Link>
               <Link href="/dashboard">
                 <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
                   Dashboard
