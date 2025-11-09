@@ -16,8 +16,6 @@ import { Input } from "@/components/ui/input"
 import prisma from "@/lib/prisma"
 import Link from "next/link";
 import {redirect} from "next/navigation";
-import {Post} from "@/app/generated/prisma/client";
-
 export function SignupForm({
   className,
   ...props
@@ -34,7 +32,10 @@ export function SignupForm({
                 name,
                 username,
                 password,
-                posts: {}
+                posts: {},
+                garden: {
+                    create: {}
+                }
             }
         })
 

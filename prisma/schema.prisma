@@ -30,7 +30,7 @@ model User {
   password String
   name     String
   posts    Post[]
-  garden   Garden?  @relation("UserGarden")
+  garden   Garden?
 }
 
 model Post {
@@ -44,7 +44,7 @@ model Post {
 model Garden {
   id      String   @id @default(uuid())
   userId  String   @unique
-  user    User     @relation("UserGarden", fields: [userId], references: [id])
+  user    User     @relation(fields: [userId], references: [id])
   plants  Plant[]  @relation("GardenPlants") // many-to-many link
 }
 

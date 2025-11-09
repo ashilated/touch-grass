@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-export default function Plant() {
+export default function Plant(url: string) {
     return (
-        <Image src="/plants/lavender.png" alt="flower" width={48} height={48}/>
+        <Image src={url} alt="flower" width={48} height={48}/>
     )
 }
