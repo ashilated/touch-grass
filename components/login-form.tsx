@@ -41,16 +41,20 @@ export function LoginForm({
 
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
+    <div className={cn("min-h-screen flex items-center justify-center bg-emerald-200", className)} {...props}>
+      <Card className="w-full max-w-md bg-white/90 shadow-lg rounded-2xl border-none">
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Log In</CardTitle>
+          <CardTitle className="text-3xl font-semibold text-green-800">
+              Log In
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={login}>
-            <FieldGroup>
+          <form action={login} className="space-y-5">
+            <FieldGroup className="space-y-4">
               <Field>
-                <FieldLabel htmlFor="username">Email</FieldLabel>
+                <FieldLabel htmlFor="username">
+                    Username
+                </FieldLabel>
                 <Input
                   id="username"
                   name="username"
