@@ -107,6 +107,34 @@ export async function main() {
             gardens: {}
         }
     })
+
+    // seed a garden for testuser
+    await prisma.user.update({
+        where: {username: "john123"},
+        data: {
+            garden: {
+                update: {
+                    plants: {
+                        connect: [
+                            { id: bamboo.id },
+                            { id: tulsi.id },
+                            { id: lavender.id },
+                            { id: cherryBlossom.id },
+                            { id: blackEyedSusan.id },
+                            { id: bamboo.id },
+                            { id: tulsi.id },
+                            { id: lavender.id },
+                            { id: cherryBlossom.id },
+                            { id: blackEyedSusan.id }
+                        ]
+                    }
+                }
+            }
+        }
+    })
+
+
+
 }
 
 main().then(async () => {

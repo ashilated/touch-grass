@@ -22,18 +22,18 @@ function seededRandom(seed: string) {
 
 export default function GardenDesktop({ plants }: { plants: PlantType[] }) {
     // Generate positions using plant ID as seed for consistency
-    const getPlantPosition = (plantId: string, index: number, totalPlants: number) => {
+    const getPlantPosition = (plantId: string) => {
         const random1 = seededRandom(plantId + '_bottom');
         const random2 = seededRandom(plantId + '_horizontal');
 
-        // Random vertical position in bottom 2/3 (0% to 67% from bottom)
-        const bottom = random1 * 67;
+        // Random vertical position in bottom 1/3 (0% to 33% from bottom) - REDUCED FROM 67%
+        const bottom = random1 * 45;
 
         // Size based on vertical position (further back = smaller)
-        const sizeMultiplier = 0.4 + (1 - bottom / 67) * 0.6;
+        const sizeMultiplier = 0.4 + (1 - bottom / 45) * 0.6;
 
         // Z-index based on vertical position
-        const zIndex = Math.floor((1 - bottom / 67) * 50);
+        const zIndex = Math.floor((1 - bottom / 45) * 50);
 
         // Horizontal position spread across the width
         const left = random2 * 80 + 10; // 10% to 90% from left
@@ -69,7 +69,7 @@ export default function GardenDesktop({ plants }: { plants: PlantType[] }) {
             ) : (
                 <div className="absolute inset-0">
                     {plants.map((plant, index) => {
-                        const position = getPlantPosition(plant.id, index, plants.length);
+                        const position = getPlantPosition(plant.id);
                         return (
                             <div
                                 key={plant.id}

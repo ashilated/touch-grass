@@ -36,17 +36,16 @@ export default function GardenScroll({ plants }: { plants: PlantType[] }) {
     }, [plants]);
 
     // Generate positions using plant ID as seed for consistency
-    const getPlantPosition = (plantId: string, index: number, totalPlants: number) => {
+    const getPlantPosition = (plantId: string) => {
         const random1 = seededRandom(plantId + '_bottom');
 
-        // Random vertical position in bottom 2/3 (0% to 67% from bottom)
-        const bottom = random1 * 67;
+        const bottom = random1 * 45;
 
         // Size based on vertical position (further back = smaller)
-        const sizeMultiplier = 0.4 + (1 - bottom / 67) * 0.6;
+        const sizeMultiplier = 0.4 + (1 - bottom / 45) * 0.6;
 
         // Z-index based on vertical position
-        const zIndex = Math.floor((1 - bottom / 67) * 50);
+        const zIndex = Math.floor((1 - bottom / 45) * 50);
 
         return {
             bottom: `${bottom}%`,
@@ -136,7 +135,7 @@ export default function GardenScroll({ plants }: { plants: PlantType[] }) {
                 ) : (
                     <div className="h-full relative" style={{ minWidth: '200vw' }}>
                         {plants.map((plant, index) => {
-                            const position = getPlantPosition(plant.id, index, plants.length);
+                            const position = getPlantPosition(plant.id);
                             const horizontalPos = getHorizontalPosition(index, plants.length);
                             return (
                                 <div
