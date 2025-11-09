@@ -14,6 +14,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Friend" (
     "id" TEXT NOT NULL,
+    "friendName" TEXT NOT NULL,
     "friendUsername" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
 
