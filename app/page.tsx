@@ -1,12 +1,24 @@
-import {Button} from "@/components/ui/button";
-import Link from "next/link";
-import analyzeImage from "@/functions/ImageAnalyzer";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import prisma from "@/lib/prisma";
 
-export default async function Home() {
-    return (
-        <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-            <Button><Link href="/login">Log In</Link></Button>
-            <Button><Link href="/signup">Sign Up</Link></Button>
-        </div>
-    );
+export default async function AppRootPage() {
+    const cookieStore = await cookies();
+    const userId = cookieStore.get("userId");
+
+    if (!userId) {
+        redirect("/login");
+    }
+
+    const user = await prisma.user.findUnique({
+        where: { id: userId.value },
+    });
+
+    if (!user) {
+        redirect("/login");
+    } else {
+        redirect("/dashboard");
+    }
+
+    return null;
 }

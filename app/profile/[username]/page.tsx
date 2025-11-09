@@ -1,11 +1,11 @@
 import prisma from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 export default async function ProfilePage({
-                                              params,
-                                          }: {
+    params,
+}: {
     params: Promise<{ username: string }>;
 }) {
     const { username } = await params;
