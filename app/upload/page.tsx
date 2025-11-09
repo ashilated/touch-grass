@@ -1,15 +1,21 @@
 "use client";
-
-import { useState, ChangeEvent, FormEvent } from "react";
+import { type PutBlobResult } from '@vercel/blob'
+import { upload } from '@vercel/blob/client'
+import {useState, ChangeEvent, FormEvent, useRef} from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import BlobToDB from "@/functions/BlobToDB";
 import UploadFile from "@/functions/UploadFile";
+import ImageAnalyzer from "@/functions/ImageAnalyzer";
 
 export default function UploadPage() {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);
+
+    const inputFileRef = useRef<HTMLInputElement>(null);
+    const [blob, setBlob] = useState<PutBlobResult | null>(null);
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const f = e.target.files?.[0] || null;
@@ -27,30 +33,20 @@ export default function UploadPage() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        if (!file) {
+        if (!inputFileRef.current?.files) {
             setMessage("Please choose a JPEG file first.");
             return;
         }
+        const file = inputFileRef.current.files[0];
 
-        const formData = new FormData();
-        formData.append("file", file);
-        setIsUploading(true);
+        const newBlob = await upload(file.name, file, {
+            access: 'public',
+            handleUploadUrl: '/api/image/upload'
+        })
 
-        const res = await fetch("/api/upload", {
-            method: "POST",
-            body: formData,
-        });
+        setBlob(newBlob);
 
-        const data = await res.json();
-        setIsUploading(false);
-
-        if (res.ok) {
-            setMessage("Upload successful!");
-            setFile(null);
-            setPreviewUrl(null);
-        } else {
-            setMessage(data.error || "Upload failed.");
-        }
+        if (blob) BlobToDB(blob.url, await ImageAnalyzer(file))
     };
 
     return (
@@ -58,9 +54,10 @@ export default function UploadPage() {
             <div className="p-6 border rounded-2xl shadow-sm bg-background w-full max-w-md bg-green-200">
                 <h1 className="text-2xl font-semibold mb-4 text-center">Upload</h1>
 
-                <form action={UploadFile} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <Input
                         type="file"
+                        ref={inputFileRef}
                         accept="image/jpeg"
                         name="file"
                         className="bg-white"

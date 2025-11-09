@@ -8,8 +8,10 @@ export default async function ImageAnalyzer(image: File) {
         console.log(latitude, longitude)
         const nearestCity = getNearestCity(latitude, longitude)
         console.log(nearestCity)
+        return nearestCity.countryName
 
     } catch (error) {
         console.log("no metadata for this image")
+        return "United States"
     }
 }

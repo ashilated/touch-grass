@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "PlantRegion" AS ENUM ('CHINA', 'US', 'CANADA', 'FRANCE', 'ITALY', 'GERMANY', 'UK', 'MEXICO', 'MONGOLIA', 'BRAZIL');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -30,11 +33,17 @@ CREATE TABLE "Garden" (
 CREATE TABLE "Plant" (
     "id" SERIAL NOT NULL,
     "imageUrl" TEXT NOT NULL,
-    "pos" INTEGER NOT NULL,
-    "type" TEXT NOT NULL,
-    "gardenId" INTEGER NOT NULL,
+    "plantRegion" "PlantRegion" NOT NULL,
 
     CONSTRAINT "Plant_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "_GardenPlants" (
+    "A" INTEGER NOT NULL,
+    "B" INTEGER NOT NULL,
+
+    CONSTRAINT "_GardenPlants_AB_pkey" PRIMARY KEY ("A","B")
 );
 
 -- CreateIndex
@@ -44,7 +53,7 @@ CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 CREATE UNIQUE INDEX "Garden_userId_key" ON "Garden"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Plant_gardenId_key" ON "Plant"("gardenId");
+CREATE INDEX "_GardenPlants_B_index" ON "_GardenPlants"("B");
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -53,4 +62,7 @@ ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") 
 ALTER TABLE "Garden" ADD CONSTRAINT "Garden_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Plant" ADD CONSTRAINT "Plant_gardenId_fkey" FOREIGN KEY ("gardenId") REFERENCES "Garden"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "_GardenPlants" ADD CONSTRAINT "_GardenPlants_A_fkey" FOREIGN KEY ("A") REFERENCES "Garden"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_GardenPlants" ADD CONSTRAINT "_GardenPlants_B_fkey" FOREIGN KEY ("B") REFERENCES "Plant"("id") ON DELETE CASCADE ON UPDATE CASCADE;
