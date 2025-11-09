@@ -13,14 +13,14 @@ datasource db {
 
 enum PlantRegion {
   CHINA
-  US
+  USA
   CANADA
   FRANCE
-  ITALY
-  GERMANY
-  UK
+  JAPAN
+  AUSTRALIA
+  SOUTH_AFRICA
   MEXICO
-  MONGOLIA
+  INDIA
   BRAZIL
 }
 

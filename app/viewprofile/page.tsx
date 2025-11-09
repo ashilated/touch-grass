@@ -77,7 +77,7 @@ export default async function ViewProfile({
                     {posts.length === 0 ? (
                         <p className="text-gray-600 text-sm">No posts yet.</p>
                     ) : (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                        <div className="w-full h-full grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                             {posts.map((post) => (
                                 <div
                                     key={post.id}
