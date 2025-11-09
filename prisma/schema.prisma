@@ -1,8 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// This is your Prisma schema file
+// Learn more at: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -28,33 +25,33 @@ enum PlantRegion {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  username String  @unique
+  id       String   @id @default(uuid())
+  username String   @unique
   password String
   name     String
-  posts    Post[]  @relation("UserPosts")
-  garden   Garden? @relation("UserGarden")
+  posts    Post[]   @relation("UserPosts")
+  garden   Garden?  @relation("UserGarden")
 }
 
 model Post {
-  id       Int         @id @default(autoincrement())
-  title    String
-  image    String
-  location String
-  authorId Int
-  author   User        @relation("UserPosts", fields: [authorId], references: [id])
+  id        String  @id @default(uuid())
+  title     String
+  image     String
+  location  String
+  authorId  String
+  author    User    @relation("UserPosts", fields: [authorId], references: [id])
 }
 
 model Garden {
-  id     Int     @id @default(autoincrement())
-  userId Int
-  user   User    @relation("UserGarden", fields: [userId], references: [id])
-  plants Plant[] @relation("GardenPlants") // many-to-many link
+  id      String   @id @default(uuid())
+  userId  String   @unique
+  user    User     @relation("UserGarden", fields: [userId], references: [id])
+  plants  Plant[]  @relation("GardenPlants")
 }
 
 model Plant {
-  id          Int         @id @default(autoincrement())
+  id          String        @id @default(uuid())
   imageUrl    String
   plantRegion PlantRegion
-  gardens     Garden[]    @relation("GardenPlants") // many-to-many link
+  gardens     Garden[]      @relation("GardenPlants")
 }

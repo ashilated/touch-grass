@@ -13,14 +13,13 @@ export default async function Dashboard() {
     }
 
     const user = await prisma.user.findUnique({
-        where: { id: parseInt(userId.value) }
+        where: { id: userId.value }
     })
 
     if (!user) {
         redirect("/")
     }
 
-    // Mock images - replace with actual user images
     const userImages = [
         { id: 1, url: "/placeholder-1.jpg", alt: "Image 1" },
         { id: 2, url: "/placeholder-2.jpg", alt: "Image 2" },
@@ -29,11 +28,8 @@ export default async function Dashboard() {
 
     return (
         <div className="min-h-screen bg-emerald-100">
-            {/* Main Content Container with side padding */}
             <div className="max-w-5xl mx-auto px-0 sm:px-8 lg:px-16">
-                {/* Banner Section with Profile Picture */}
                 <div className="relative">
-                    {/* Garden Banner - Clickable */}
                     <Button className="w-full h-32 sm:h-48 rounded-none bg-gradient-to-r from-green-400 to-emerald-500 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
                         <div className="w-full h-full flex items-center justify-center text-white text-base sm:text-lg">
                             My Garden

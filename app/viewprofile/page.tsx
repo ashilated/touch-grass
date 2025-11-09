@@ -4,9 +4,9 @@ import Image from "next/image";
 export default async function ViewProfile({
     searchParams,
 }: {
-    searchParams: { username?: string };
+    searchParams: Promise<{ username?: string }>;
 }) {
-    const username = searchParams.username;
+    const { username } = await searchParams;
 
     if (!username) {
         return (
