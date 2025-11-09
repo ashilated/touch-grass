@@ -61,7 +61,7 @@ export default async function ProfilePage({
             <div className="max-w-5xl mx-auto px-0 sm:px-8 lg:px-16">
                 {/* Banner Section */}
                 <div className="relative">
-                    <div className="w-full h-32 sm:h-48 bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center text-white text-base sm:text-lg font-medium">
+                    <div className="w-full w-min-56 h-32 sm:h-48 bg-[url('garden_bg.webp')] bg-cover bg-center rounded-none flex items-end justify-end p-2 text-white text-lg sm:text-xl font-semibold shadow-sm">
                         {user.name}&#39;s Garden
                     </div>
 
@@ -149,11 +149,11 @@ export default async function ProfilePage({
                     {plants.length === 0 ? (
                         <p className="text-gray-600 text-sm">No plants in garden.</p>
                     ) : (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                        <div className="grid grid-cols-4 sm:grid-cols-6 gap-3 sm:gap-4">
                             {plants.slice(0, 6).map((plant) => (
                                 <div
                                     key={plant.id}
-                                    className="aspect-square bg-white rounded-lg overflow-hidden shadow-sm"
+                                    className="aspect-square rounded-lg overflow-hidden"
                                 >
                                     <Image
                                         src={plant.plantType.imageUrl}
@@ -162,7 +162,7 @@ export default async function ProfilePage({
                                         height={400}
                                         className="object-cover w-full h-full"
                                     />
-                                    <div className="p-2 text-center text-xs sm:text-sm text-gray-700 bg-white">
+                                    <div className="p-2 text-center text-xs sm:text-sm text-gray-700">
                                         {plant.plantType.plantRegion.replace('_', ' ')}
                                     </div>
                                 </div>
