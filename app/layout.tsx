@@ -37,7 +37,7 @@ export default function RootLayout({
           <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
             {/* Logo / Brand */}
             <Link
-              href="/"
+              href="/dashboard"
               className="text-lg font-semibold text-emerald-600 hover:text-emerald-700"
             >
               🌿 Touch Grass
