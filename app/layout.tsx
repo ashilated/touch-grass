@@ -7,6 +7,7 @@ import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import Image from 'next/image'
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,19 +37,19 @@ export default function RootLayout({
         {/* ===== HEADER ===== */}
         <header className="bg-green-50 shadow-sm w-full fixed top-0 z-30 px-2">
           <div className="mx-auto flex items-center justify-between px-.5 py-2">
-              <Link
-                  href="/dashboard"
-                  className="text-lg font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-2"
-              >
-                  <Image
-                      src="/favicon.ico"
-                      alt="Touch Grass"
-                      width={24}
-                      height={24}
-                      className="w-6 h-6 mb-1"
-                  />
-                  Touch Grass
-              </Link>
+            <Link
+              href="/dashboard"
+              className="text-lg font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-2"
+            >
+              <Image
+                src="/favicon.ico"
+                alt="Touch Grass"
+                width={24}
+                height={24}
+                className="w-6 h-6 mb-1"
+              />
+              Touch Grass
+            </Link>
 
             {/* --- Mobile Menu --- */}
             <div className="sm:hidden">
@@ -64,24 +65,24 @@ export default function RootLayout({
                   </VisuallyHidden>
 
                   <nav className="flex flex-col space-y-2 mt-6">
-                      <Link
-                          href="/friends/leaderboard"
-                          className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
-                      >
-                          Leaderboard
-                      </Link>
-                      <Link
-                          href="/lookup"
-                          className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
-                      >
-                          Search
-                      </Link>
-                      <Link
-                          href="/friends"
-                          className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
-                      >
-                          Friends
-                      </Link>
+                    <Link
+                      href="/friends/leaderboard"
+                      className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
+                    >
+                      Leaderboard
+                    </Link>
+                    <Link
+                      href="/lookup"
+                      className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
+                    >
+                      Search
+                    </Link>
+                    <Link
+                      href="/friends"
+                      className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
+                    >
+                      Friends
+                    </Link>
                     <Link
                       href="/dashboard"
                       className="text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-md"
@@ -95,21 +96,21 @@ export default function RootLayout({
 
             {/* --- Desktop Nav --- */}
             <nav className="hidden sm:flex">
-                <Link href="/friends/leaderboard">
-                    <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
-                        Leaderboard
-                    </Button>
-                </Link>
-                <Link href="/lookup">
-                    <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
-                        Search
-                    </Button>
-                </Link>
-                <Link href="/friends">
-                    <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
-                        Friends
-                    </Button>
-                </Link>
+              <Link href="/friends/leaderboard">
+                <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
+                  Leaderboard
+                </Button>
+              </Link>
+              <Link href="/lookup">
+                <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
+                  Search
+                </Button>
+              </Link>
+              <Link href="/friends">
+                <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
+                  Friends
+                </Button>
+              </Link>
               <Link href="/dashboard">
                 <Button
                   variant="default"
@@ -124,6 +125,9 @@ export default function RootLayout({
 
         {/* ===== MAIN CONTENT ===== */}
         <main className="flex-1 pt-12">{children}</main>
+
+        <Footer />
+
       </body>
     </html>
   );
