@@ -34,7 +34,9 @@ export function SignupForm({
                 password,
                 posts: {},
                 garden: {
-                    create: {}
+                    create: {
+                        plants: {}
+                    },
                 }
             }
         })
