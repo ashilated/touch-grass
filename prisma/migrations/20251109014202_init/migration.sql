@@ -3,7 +3,7 @@ CREATE TYPE "PlantRegion" AS ENUM ('CHINA', 'US', 'CANADA', 'FRANCE', 'ITALY', '
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -13,25 +13,25 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Post" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "image" TEXT NOT NULL,
-    "authorId" INTEGER NOT NULL,
+    "authorId" TEXT NOT NULL,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Garden" (
-    "id" SERIAL NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Garden_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Plant" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "imageUrl" TEXT NOT NULL,
     "plantRegion" "PlantRegion" NOT NULL,
 
@@ -40,8 +40,8 @@ CREATE TABLE "Plant" (
 
 -- CreateTable
 CREATE TABLE "_GardenPlants" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL,
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL,
 
     CONSTRAINT "_GardenPlants_AB_pkey" PRIMARY KEY ("A","B")
 );
