@@ -4,10 +4,10 @@ import PlantRegion = $Enums.PlantRegion;
 const prisma = new PrismaClient();
 
 export async function main() {
-    const testUser = await prisma.user.create({
+    await prisma.user.create({
         data: {
-            username: "john123",
-            name: "John Vercel",
+            username: "johncompsigh",
+            name: "John Grass",
             password: "test",
             posts: {},
             garden: {
@@ -17,10 +17,49 @@ export async function main() {
         }
     })
 
-    const testUser2 = await prisma.user.create({
+    await prisma.user.create({
         data: {
-            username: "bob123",
-            name: "Bob Prisma",
+            username: "alovelace",
+            name: "Ada Lovelace",
+            password: "test",
+            posts: {},
+            garden: {
+                create: {}
+            },
+            friends: {}
+        }
+    })
+
+    await prisma.user.create({
+        data: {
+            username: "aturing",
+            name: "Alan Turing",
+            password: "test",
+            posts: {},
+            garden: {
+                create: {}
+            },
+            friends: {}
+        }
+    })
+
+    await prisma.user.create({
+        data: {
+            username: "linus",
+            name: "Linus Torvalds",
+            password: "test",
+            posts: {},
+            garden: {
+                create: {}
+            },
+            friends: {}
+        }
+    })
+
+    await prisma.user.create({
+        data: {
+            username: "grasslover24",
+            name: "Gina",
             password: "test",
             posts: {},
             garden: {
@@ -109,7 +148,6 @@ export async function main() {
             plants: {}
         }
     })
-
 
 }
 

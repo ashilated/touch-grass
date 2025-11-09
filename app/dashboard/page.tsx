@@ -71,7 +71,7 @@ export default async function DashboardPage() {
                             user.posts.map((post) => (
                                 <div
                                     key={post.id}
-                                    className="relative rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
+                                    className="aspect-square relative rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
                                 >
                                     <Image
                                         src={post.image}
