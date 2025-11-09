@@ -1,20 +1,12 @@
 import prisma from "@/lib/prisma";
 import Image from "next/image";
 
-export default async function ViewProfile({
-    searchParams,
-}: {
-    searchParams: Promise<{ username?: string }>;
+export default async function ProfilePage({
+                                              params,
+                                          }: {
+    params: Promise<{ username: string }>;
 }) {
-    const { username } = await searchParams;
-
-    if (!username) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-emerald-100">
-                <p className="text-gray-700 text-center">No username provided.</p>
-            </div>
-        );
-    }
+    const { username } = await params;
 
     const user = await prisma.user.findUnique({
         where: { username },
@@ -43,7 +35,7 @@ export default async function ViewProfile({
                 {/* Banner Section */}
                 <div className="relative">
                     <div className="w-full h-32 sm:h-48 bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center text-white text-base sm:text-lg font-medium">
-                        {user.name}'s Garden
+                        {user.name}&#39;s Garden
                     </div>
 
                     {/* Profile Picture */}
@@ -71,7 +63,7 @@ export default async function ViewProfile({
                 {/* Posts Section */}
                 <div className="px-4 sm:px-8 pb-8">
                     <h2 className="text-lg sm:text-xl font-semibold mb-4">
-                        {user.name}'s Posts
+                        {user.name}&#39;s Posts
                     </h2>
 
                     {posts.length === 0 ? (

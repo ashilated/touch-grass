@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import BlobToDB from "@/functions/BlobToDB";
 import UploadFile from "@/functions/UploadFile";
 import ImageAnalyzer from "@/functions/ImageAnalyzer";
+import {redirect} from "next/navigation";
 
 export default function UploadPage() {
     const [file, setFile] = useState<File | null>(null);
@@ -16,20 +17,6 @@ export default function UploadPage() {
 
     const inputFileRef = useRef<HTMLInputElement>(null);
     const [blob, setBlob] = useState<PutBlobResult | null>(null);
-
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const f = e.target.files?.[0] || null;
-        if (!f) return;
-
-        if (f.type !== "image/jpeg" && f.type !== "image/pjpeg") {
-            setMessage("Please select a JPEG file only.");
-            return;
-        }
-
-        setFile(f);
-        setPreviewUrl(URL.createObjectURL(f));
-        setMessage(null);
-    };
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -46,7 +33,9 @@ export default function UploadPage() {
 
         setBlob(newBlob);
 
-        if (blob) BlobToDB(blob.url, await ImageAnalyzer(file))
+        if (newBlob) await BlobToDB(newBlob.url, await ImageAnalyzer(file))
+
+        redirect("/dashboard")
     };
 
     return (
