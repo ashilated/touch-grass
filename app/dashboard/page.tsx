@@ -22,7 +22,7 @@ export default async function DashboardPage() {
             <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-16">
                 {/* --- Banner --- */}
                 <div className="relative">
-                    <Link href={`/profile/${user.username}/garden`} className="w-full w-min-56 h-32 sm:h-48 bg-gradient-to-r from-green-400 to-emerald-500 rounded-none flex items-center justify-center text-white text-lg sm:text-xl font-semibold shadow-sm">
+                    <Link href={`/profile/${user.username}/garden`} className="w-full w-min-56 h-32 sm:h-48 bg-[url('garden_bg.webp')] bg-cover bg-center rounded-none flex items-end justify-end p-2 text-white text-lg sm:text-xl font-semibold shadow-sm">
                         My Garden
                     </Link>
 
@@ -59,7 +59,7 @@ export default async function DashboardPage() {
                         {/* Upload New Image */}
                         <Link
                             href="/upload"
-                            className="aspect-rectangle bg-white rounded-lg flex items-center justify-center text-emerald-600 border border-emerald-200 hover:bg-emerald-50 transition"
+                            className="aspect-rectangle sm:aspect-square bg-white rounded-lg flex items-center justify-center text-emerald-600 border border-emerald-200 hover:bg-emerald-50 transition"
                         >
                             <span className="text-sm sm:text-base font-medium">
                                 + Upload Image

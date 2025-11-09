@@ -64,10 +64,10 @@ export default function GardenDesktop({ plants }: { plants: PlantWithType[] }) {
             />
 
             {plants.length === 0 ? (
-                <div className="absolute inset-0 flex items-center justify-center px-4 z-10">
+                <div className="absolute inset-0 flex items-center justify-center px-4 z-10 bg-gray-400 opacity-80">
                     <div className="text-center">
-                        <p className="text-white text-lg drop-shadow-lg">No plants in garden yet.</p>
-                        <p className="text-white/80 text-sm mt-2 drop-shadow">
+                        <p className="text-white font semibold text-lg">No plants in garden yet.</p>
+                        <p className="text-white font-semibold text-sm">
                             Start posting to grow your garden!
                         </p>
                     </div>

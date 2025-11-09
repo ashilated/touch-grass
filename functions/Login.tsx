@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from "@/lib/prisma";
-import {cookies} from "next/headers";
+import { cookies } from "next/headers";
 
 
 export default async function Login(formData: FormData) {

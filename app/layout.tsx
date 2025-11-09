@@ -33,8 +33,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-emerald-50 text-gray-900 antialiased min-h-screen flex flex-col`}
       >
         {/* ===== HEADER ===== */}
-        <header className="bg-white shadow-sm sticky top-0 z-50">
-          <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+        <header className="bg-green-50 shadow-sm sticky top-0 z-30">
+          <div className="max-w-5xl mx-auto flex items-center justify-between px-.5 py-2">
             {/* Logo / Brand */}
             <Link
               href="/dashboard"
@@ -47,7 +47,7 @@ export default function RootLayout({
             <div className="sm:hidden">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
+                  <Button size="icon">
                     <Menu className="h-5 w-5 text-emerald-700" />
                   </Button>
                 </SheetTrigger>
@@ -99,7 +99,7 @@ export default function RootLayout({
 
         {/* ===== FOOTER ===== */}
         <footer className="bg-white border-t border-gray-200">
-          <div className="max-w-6xl mx-auto px-4 py-6 text-center text-sm text-gray-500">
+          <div className="max-w-5xl mx-auto px-4 py-4 text-center text-sm text-gray-500">
             © {new Date().getFullYear()} Touch Grass — The social game for touching grass 🌱
           </div>
         </footer>
