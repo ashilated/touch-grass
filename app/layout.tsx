@@ -35,7 +35,7 @@ export default function RootLayout({
       >
         {/* ===== HEADER ===== */}
         <header className="bg-green-50 shadow-sm w-full fixed top-0 z-30 px-2">
-          <div className="max-w-5xl mx-auto flex items-center justify-between px-.5 py-2">
+          <div className="mx-auto flex items-center justify-between px-.5 py-2">
               <Link
                   href="/"
                   className="text-lg font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-2"

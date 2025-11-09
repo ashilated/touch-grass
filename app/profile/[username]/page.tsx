@@ -112,7 +112,7 @@ export default async function ProfilePage({
                         <p className="text-gray-600 text-sm">No posts yet.</p>
                     ) : (
                         <div className="w-full h-full grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-                            {posts.map((post) => (
+                            {posts.toReversed().map((post) => (
                                 <div
                                     key={post.id}
                                     className="relative aspect-square rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
@@ -147,7 +147,7 @@ export default async function ProfilePage({
                         <p className="text-gray-600 text-sm">No plants in garden.</p>
                     ) : (
                         <div className="grid grid-cols-4 sm:grid-cols-6 gap-3 sm:gap-4">
-                            {plants.slice(0, 6).map((plant) => (
+                            {plants.toReversed().map((plant) => (
                                 <div
                                     key={plant.id}
                                     className="aspect-square rounded-lg overflow-hidden"

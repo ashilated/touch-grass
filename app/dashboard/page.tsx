@@ -68,7 +68,7 @@ export default async function DashboardPage() {
 
                         {/* User Images */}
                         {user.posts.length > 0 ? (
-                            user.posts.map((post) => (
+                            user.posts.toReversed().map((post) => (
                                 <div
                                     key={post.id}
                                     className="aspect-square relative rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
@@ -90,7 +90,7 @@ export default async function DashboardPage() {
                             ))
                         ) : (
                             <div className="col-span-full text-gray-500 text-center py-6">
-                                You haven’t uploaded any plants yet 🌱
+                                You haven’t uploaded any photos yet
                             </div>
                         )}
                     </div>
