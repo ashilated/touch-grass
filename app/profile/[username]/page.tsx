@@ -1,11 +1,10 @@
 import prisma from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export default async function ProfilePage({
-    params,
-}: {
+                                              params,
+                                          }: {
     params: Promise<{ username: string }>;
 }) {
     const { username } = await params;
@@ -15,7 +14,13 @@ export default async function ProfilePage({
         include: {
             posts: true,
             garden: {
-                include: { plants: true },
+                include: {
+                    plants: {
+                        include: {
+                            plantType: true
+                        }
+                    }
+                },
             },
         },
     });
@@ -36,9 +41,9 @@ export default async function ProfilePage({
             <div className="max-w-5xl mx-auto px-0 sm:px-8 lg:px-16">
                 {/* Banner Section */}
                 <div className="relative">
-                    <Button className="w-full h-32 sm:h-48 bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center text-white text-base sm:text-lg font-medium">
-                        <Link href={`/profile/${username}/garden`}>{user.name}&#39;s Garden</Link>
-                    </Button>
+                    <div className="w-full h-32 sm:h-48 bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center text-white text-base sm:text-lg font-medium">
+                        {user.name}&#39;s Garden
+                    </div>
 
                     {/* Profile Picture */}
                     <div className="absolute -bottom-12 sm:-bottom-16 left-4 sm:left-8">
@@ -92,28 +97,38 @@ export default async function ProfilePage({
 
                 {/* Garden Plants Section */}
                 <div className="px-4 sm:px-8 pb-8">
-                    <h2 className="text-lg sm:text-xl font-semibold mb-4">
-                        Garden Plants
-                    </h2>
+                    <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-lg sm:text-xl font-semibold">
+                            Garden Plants
+                        </h2>
+                        {plants.length > 0 && (
+                            <Link
+                                href={`/profile/${username}/garden`}
+                                className="text-emerald-600 hover:text-emerald-700 text-sm font-medium"
+                            >
+                                View Garden →
+                            </Link>
+                        )}
+                    </div>
 
                     {plants.length === 0 ? (
                         <p className="text-gray-600 text-sm">No plants in garden.</p>
                     ) : (
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-                            {plants.map((plant) => (
+                            {plants.slice(0, 6).map((plant) => (
                                 <div
                                     key={plant.id}
-                                    className="aspect-square bg-white rounded-lg overflow-hidden shadow-sm"
+                                    className="aspect-square rounded-lg overflow-hidden"
                                 >
                                     <Image
-                                        src={plant.imageUrl}
-                                        alt={plant.plantRegion}
+                                        src={plant.plantType.imageUrl}
+                                        alt={plant.plantType.plantRegion}
                                         width={400}
                                         height={400}
                                         className="object-cover w-full h-full"
                                     />
-                                    <div className="p-2 text-center text-xs sm:text-sm text-gray-700 bg-white">
-                                        {plant.plantRegion}
+                                    <div className="p-2 text-center text-xs sm:text-sm text-gray-700">
+                                        {plant.plantType.plantRegion.replace('_', ' ')}
                                     </div>
                                 </div>
                             ))}
