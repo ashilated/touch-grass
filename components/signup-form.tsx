@@ -37,7 +37,8 @@ export function SignupForm({
                     create: {
                         plants: {}
                     },
-                }
+                },
+                friends: {}
             }
         })
 

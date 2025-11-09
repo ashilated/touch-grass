@@ -19,5 +19,5 @@ export default async function Login(formData: FormData) {
     }
     console.log("logged in")
     const cookieStore = await cookies()
-    cookieStore.set("userId", user.id.toString())
+    cookieStore.set("userId", user.id.toString(), {expires: 60 * 100 * 100})
 }

@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "PlantRegion" AS ENUM ('CHINA', 'US', 'CANADA', 'FRANCE', 'ITALY', 'GERMANY', 'UK', 'MEXICO', 'MONGOLIA', 'BRAZIL');
+CREATE TYPE "PlantRegion" AS ENUM ('CHINA', 'USA', 'CANADA', 'FRANCE', 'JAPAN', 'AUSTRALIA', 'SOUTH_AFRICA', 'MEXICO', 'INDIA', 'BRAZIL');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -9,6 +9,15 @@ CREATE TABLE "User" (
     "name" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Friend" (
+    "id" TEXT NOT NULL,
+    "friendUsername" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+
+    CONSTRAINT "Friend_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -32,18 +41,19 @@ CREATE TABLE "Garden" (
 -- CreateTable
 CREATE TABLE "Plant" (
     "id" TEXT NOT NULL,
-    "imageUrl" TEXT NOT NULL,
-    "plantRegion" "PlantRegion" NOT NULL,
+    "gardenId" TEXT NOT NULL,
+    "plantTypeId" TEXT NOT NULL,
 
     CONSTRAINT "Plant_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "_GardenPlants" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL,
+CREATE TABLE "PlantType" (
+    "id" TEXT NOT NULL,
+    "imageUrl" TEXT NOT NULL,
+    "plantRegion" "PlantRegion" NOT NULL,
 
-    CONSTRAINT "_GardenPlants_AB_pkey" PRIMARY KEY ("A","B")
+    CONSTRAINT "PlantType_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -52,8 +62,8 @@ CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 -- CreateIndex
 CREATE UNIQUE INDEX "Garden_userId_key" ON "Garden"("userId");
 
--- CreateIndex
-CREATE INDEX "_GardenPlants_B_index" ON "_GardenPlants"("B");
+-- AddForeignKey
+ALTER TABLE "Friend" ADD CONSTRAINT "Friend_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -62,7 +72,7 @@ ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") 
 ALTER TABLE "Garden" ADD CONSTRAINT "Garden_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_GardenPlants" ADD CONSTRAINT "_GardenPlants_A_fkey" FOREIGN KEY ("A") REFERENCES "Garden"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Plant" ADD CONSTRAINT "Plant_gardenId_fkey" FOREIGN KEY ("gardenId") REFERENCES "Garden"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_GardenPlants" ADD CONSTRAINT "_GardenPlants_B_fkey" FOREIGN KEY ("B") REFERENCES "Plant"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Plant" ADD CONSTRAINT "Plant_plantTypeId_fkey" FOREIGN KEY ("plantTypeId") REFERENCES "PlantType"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

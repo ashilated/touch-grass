@@ -31,6 +31,14 @@ model User {
   name     String
   posts    Post[]
   garden   Garden?
+  friends Friend[]
+}
+
+model Friend {
+  id       String   @id @default(uuid())
+  friendUsername String
+  userId String
+  user User @relation(fields: [userId], references:[id])
 }
 
 model Post {
@@ -45,12 +53,20 @@ model Garden {
   id      String   @id @default(uuid())
   userId  String   @unique
   user    User     @relation(fields: [userId], references: [id])
-  plants  Plant[]  @relation("GardenPlants") // many-to-many link
+  plants  Plant[]
 }
 
 model Plant {
   id          String      @id @default(uuid())
+  gardenId String
+  garden Garden @relation(fields:[gardenId], references:[id])
+  plantTypeId String
+  plantType PlantType @relation(fields:[plantTypeId], references:[id])
+}
+
+model PlantType {
+  id          String      @id @default(uuid())
   imageUrl    String
   plantRegion PlantRegion
-  gardens     Garden[]    @relation("GardenPlants") // many-to-many link
+  plants Plant[]
 }

@@ -50,7 +50,7 @@ export default async function BlobToDB(url:string, location:string) {
     }
 
 
-    const plant = await prisma.plant.findFirst({
+    const plant = await prisma.plantType.findFirst({
         where: {plantRegion: locEnum},
     })
 
@@ -67,9 +67,9 @@ export default async function BlobToDB(url:string, location:string) {
             garden: {
                 update: {
                     plants: {
-                        connect: {
+                        create: {
                             // @ts-expect-error this will never be null
-                            id: plant.id
+                            plantTypeId: plant.id
                         }
                     }
                 }

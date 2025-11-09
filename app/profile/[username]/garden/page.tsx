@@ -4,8 +4,8 @@ import GardenScroll from "@/components/garden/GardenScroll";
 import GardenDesktop from "@/components/garden/GardenDesktop";
 
 export default async function GardenPage({
-    params,
-}: {
+                                             params,
+                                         }: {
     params: Promise<{ username: string }>;
 }) {
     const { username } = await params;
@@ -14,7 +14,13 @@ export default async function GardenPage({
         where: { username },
         include: {
             garden: {
-                include: { plants: true },
+                include: {
+                    plants: {
+                        include: {
+                            plantType: true
+                        }
+                    }
+                },
             },
         },
     });

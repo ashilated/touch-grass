@@ -9,6 +9,11 @@ interface PlantType {
     plantRegion: string;
 }
 
+interface PlantWithType {
+    id: string;
+    plantType: PlantType;
+}
+
 // Seeded random function for consistent server/client rendering
 function seededRandom(seed: string) {
     let hash = 0;
@@ -20,23 +25,24 @@ function seededRandom(seed: string) {
     return x - Math.floor(x);
 }
 
-export default function GardenDesktop({ plants }: { plants: PlantType[] }) {
+export default function GardenDesktop({ plants }: { plants: PlantWithType[] }) {
     // Generate positions using plant ID as seed for consistency
-    const getPlantPosition = (plantId: string) => {
+    const getPlantPosition = (plantId: string, index: number, totalPlants: number) => {
         const random1 = seededRandom(plantId + '_bottom');
         const random2 = seededRandom(plantId + '_horizontal');
 
-        // Random vertical position in bottom 1/3 (0% to 33% from bottom) - REDUCED FROM 67%
-        const bottom = random1 * 45;
+        // Random vertical position in bottom 1/3 (0% to 33% from bottom)
+        // Round to 4 decimal places to ensure server/client match
+        const bottom = Math.round(random1 * 33 * 10000) / 10000;
 
         // Size based on vertical position (further back = smaller)
-        const sizeMultiplier = 0.4 + (1 - bottom / 45) * 0.6;
+        const sizeMultiplier = Math.round((0.4 + (1 - bottom / 33) * 0.6) * 10000) / 10000;
 
         // Z-index based on vertical position
-        const zIndex = Math.floor((1 - bottom / 45) * 50);
+        const zIndex = Math.floor((1 - bottom / 33) * 50);
 
         // Horizontal position spread across the width
-        const left = random2 * 80 + 10; // 10% to 90% from left
+        const left = Math.round((random2 * 80 + 10) * 10000) / 10000; // 10% to 90% from left
 
         return {
             bottom: `${bottom}%`,
@@ -69,7 +75,7 @@ export default function GardenDesktop({ plants }: { plants: PlantType[] }) {
             ) : (
                 <div className="absolute inset-0">
                     {plants.map((plant, index) => {
-                        const position = getPlantPosition(plant.id);
+                        const position = getPlantPosition(plant.id, index, plants.length);
                         return (
                             <div
                                 key={plant.id}
@@ -82,7 +88,7 @@ export default function GardenDesktop({ plants }: { plants: PlantType[] }) {
                                     transformOrigin: 'bottom center',
                                 }}
                             >
-                                <Plant name={plant.id} plant={plant.imageUrl} />
+                                <Plant name={plant.id} plant={plant.plantType.imageUrl} />
                             </div>
                         );
                     })}

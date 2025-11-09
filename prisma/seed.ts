@@ -12,7 +12,8 @@ export async function main() {
             posts: {},
             garden: {
                 create: {}
-            }
+            },
+            friends: {}
         }
     })
 
@@ -24,115 +25,90 @@ export async function main() {
             posts: {},
             garden: {
                 create: {}
-            }
+            },
+            friends: {}
         }
     })
 
-    const bamboo = await prisma.plant.create({
+    const bamboo = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/bamboo.png",
             plantRegion: PlantRegion.CHINA,
-            gardens: {}
+            plants: {}
         }
     })
 
-    const tulsi = await prisma.plant.create({
+    const tulsi = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/tulsi.png",
             plantRegion: PlantRegion.INDIA,
-            gardens: {}
+            plants: {}
         }
     })
 
-    const protea = await prisma.plant.create({
+    const protea = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/protea.png",
             plantRegion: PlantRegion.SOUTH_AFRICA,
-            gardens: {}
+            plants: {}
         }
     })
 
-    const princessFlower = await prisma.plant.create({
+    const princessFlower = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/princessflower.png",
             plantRegion: PlantRegion.BRAZIL,
-            gardens: {}
+            plants: {}
         }
     })
 
-    const mexicanMarigold = await prisma.plant.create({
+    const mexicanMarigold = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/mexicanmarigold.png",
             plantRegion: PlantRegion.MEXICO,
-            gardens: {}
+            plants: {}
         }
     })
 
-    const lavender = await prisma.plant.create({
+    const lavender = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/lavender.png",
             plantRegion: PlantRegion.FRANCE,
-            gardens: {}
+            plants: {}
         }
     })
 
-    const kangarooPaw = await prisma.plant.create({
+    const kangarooPaw = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/kangaroopaw.png",
             plantRegion: PlantRegion.AUSTRALIA,
-            gardens: {}
+            plants: {}
         }
     })
 
-    const commonMilkweed = await prisma.plant.create({
+    const commonMilkweed = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/commonmilkweed.png",
             plantRegion: PlantRegion.CANADA,
-            gardens: {}
+            plants: {}
         }
     })
 
-    const cherryBlossom = await prisma.plant.create({
+    const cherryBlossom = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/cherryblossom.png",
             plantRegion: PlantRegion.JAPAN,
-            gardens: {}
+            plants: {}
         }
     })
 
-    const blackEyedSusan = await prisma.plant.create({
+    const blackEyedSusan = await prisma.plantType.create({
         data: {
             imageUrl: "/plants/blackeyedsusan.png",
             plantRegion: PlantRegion.USA,
-            gardens: {}
+            plants: {}
         }
     })
-
-    // seed a garden for testuser
-    await prisma.user.update({
-        where: {username: "john123"},
-        data: {
-            garden: {
-                update: {
-                    plants: {
-                        connect: [
-                            { id: bamboo.id },
-                            { id: tulsi.id },
-                            { id: lavender.id },
-                            { id: cherryBlossom.id },
-                            { id: blackEyedSusan.id },
-                            { id: bamboo.id },
-                            { id: tulsi.id },
-                            { id: lavender.id },
-                            { id: cherryBlossom.id },
-                            { id: blackEyedSusan.id }
-                        ]
-                    }
-                }
-            }
-        }
-    })
-
 
 
 }

@@ -10,6 +10,11 @@ interface PlantType {
     plantRegion: string;
 }
 
+interface PlantWithType {
+    id: string;
+    plantType: PlantType;
+}
+
 // Seeded random function for consistent server/client rendering
 function seededRandom(seed: string) {
     let hash = 0;
@@ -21,7 +26,7 @@ function seededRandom(seed: string) {
     return x - Math.floor(x);
 }
 
-export default function GardenScroll({ plants }: { plants: PlantType[] }) {
+export default function GardenScroll({ plants }: { plants: PlantWithType[] }) {
     const scrollRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
     const posRef = useRef({ left: 0, x: 0 });
@@ -39,13 +44,15 @@ export default function GardenScroll({ plants }: { plants: PlantType[] }) {
     const getPlantPosition = (plantId: string) => {
         const random1 = seededRandom(plantId + '_bottom');
 
-        const bottom = random1 * 45;
+        // Random vertical position in bottom 1/3 (0% to 33% from bottom)
+        // Round to 4 decimal places to ensure server/client match
+        const bottom = Math.round(random1 * 33 * 10000) / 10000;
 
         // Size based on vertical position (further back = smaller)
-        const sizeMultiplier = 0.4 + (1 - bottom / 45) * 0.6;
+        const sizeMultiplier = Math.round((0.4 + (1 - bottom / 33) * 0.6) * 10000) / 10000;
 
         // Z-index based on vertical position
-        const zIndex = Math.floor((1 - bottom / 45) * 50);
+        const zIndex = Math.floor((1 - bottom / 33) * 50);
 
         return {
             bottom: `${bottom}%`,
@@ -149,7 +156,7 @@ export default function GardenScroll({ plants }: { plants: PlantType[] }) {
                                         transformOrigin: 'bottom center',
                                     }}
                                 >
-                                    <Plant name={plant.id} plant={plant.imageUrl} />
+                                    <Plant name={plant.id} plant={plant.plantType.imageUrl} />
                                 </div>
                             );
                         })}
