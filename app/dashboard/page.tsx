@@ -70,11 +70,8 @@ export default async function Dashboard() {
                                 key={post.id}
                                 className="aspect-square bg-white rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity shadow-sm"
                             >
-                                {/* Replace with actual images */}
-                                <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">
-                                    📷<h2>{post.title}</h2>
-                                    <Image src={post.image} alt="user image" width={400} height={400} />
-                                </div>
+                                <h2 className="text-center">{post.title}</h2>
+                                <Image src={post.image} alt="user image" width={1000} height={1000} />
                             </div>
                         ))}
                     </div>

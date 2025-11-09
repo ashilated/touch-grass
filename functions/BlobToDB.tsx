@@ -15,7 +15,7 @@ export default async function BlobToDB(url:string, location:string) {
     const image = url
 
     await prisma.user.update({
-        where: {id: parseInt(userId.value)},
+        where: {id: userId.value},
         data: {
             posts: {
                 create: {
