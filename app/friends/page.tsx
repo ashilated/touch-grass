@@ -8,19 +8,19 @@ export default async function FriendsPage() {
     const cookieStore = await cookies()
     const userId = cookieStore.get('userId')
     if (!userId) {redirect("/login")}
-    const user = await prisma.user.findUnique({
-        where: {id: userId.value},
-        include: {friends: true}
+
+    const friends = await prisma.friend.findMany({
+        where: {userId: userId.value}
     })
-    if (!user) {redirect("/login")}
+
     return (
         <div className="min-h-screen bg-emerald-100 py-8">
             <div className="max-w-5xl mx-auto px-4 sm:px-8">
                 <h1 className="text-2xl sm:text-3xl font-bold mb-6">Friends</h1>
 
-                {user.friends.length > 0 ? (
+                {friends.length > 0 ? (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                        {user.friends.map(friend => (
+                        {friends.map(friend => (
                             <Link
                                 key={friend.id}
                                 href={`/profile/${friend.friendUsername}`}
@@ -36,6 +36,9 @@ export default async function FriendsPage() {
                                     />
                                 </div>
                                 <div className="p-3">
+                                    <h3 className="font-semibold text-gray-900 truncate">
+                                        {friend.friendName}
+                                    </h3>
                                     <p className="text-sm text-gray-600 truncate">
                                         @{friend.friendUsername}
                                     </p>

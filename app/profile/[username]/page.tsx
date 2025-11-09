@@ -1,6 +1,9 @@
 import prisma from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
+import {cookies} from "next/headers";
+import {User} from "@/app/generated/prisma";
+import AddFriendButton from "@/components/add-friend-button";
 
 export default async function ProfilePage({
                                               params,
@@ -33,8 +36,25 @@ export default async function ProfilePage({
         );
     }
 
+    // Check if viewing own profile
+    const cookieStore = await cookies();
+    const userId = cookieStore.get('userId');
+    const isOwnProfile = userId?.value === user.id;
+
+    let isFriend = false;
+    if (userId && !isOwnProfile) {
+        const existingFriend = await prisma.friend.findFirst({
+            where: {
+                userId: userId.value,
+                friendUsername: user.username
+            }
+        });
+        isFriend = existingFriend !== null;
+    }
+
     const posts = user.posts;
     const plants = user.garden?.plants || [];
+
 
     return (
         <div className="min-h-screen bg-emerald-100">
@@ -60,11 +80,26 @@ export default async function ProfilePage({
                         </div>
                     </div>
                 </div>
+                {!isOwnProfile && !isFriend && (
+                    <div className="float-right mt-3 mr-3 sm:mr-0 ">
+                        <AddFriendButton user={user as User}/>
+                    </div>
+                )}
+                {!isOwnProfile && isFriend && (
+                    <button className="float-right mt-3 mr-3 sm:mr-0 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm">
+                        Friends ✓
+                    </button>
+                )}
 
                 {/* User Info */}
                 <div className="pt-16 sm:pt-20 px-4 sm:px-8 pb-4 sm:pb-6">
-                    <h1 className="text-2xl sm:text-3xl font-bold">{user.name}</h1>
-                    <p className="text-gray-600 text-sm">@{user.username}</p>
+                    <div className="flex items-start justify-between">
+                        <div>
+                            <h1 className="text-2xl sm:text-3xl font-bold">{user.name}</h1>
+                            <p className="text-gray-600 text-sm">@{user.username}</p>
+                        </div>
+
+                    </div>
                 </div>
 
                 {/* Posts Section */}
@@ -118,7 +153,7 @@ export default async function ProfilePage({
                             {plants.slice(0, 6).map((plant) => (
                                 <div
                                     key={plant.id}
-                                    className="aspect-square rounded-lg overflow-hidden"
+                                    className="aspect-square bg-white rounded-lg overflow-hidden shadow-sm"
                                 >
                                     <Image
                                         src={plant.plantType.imageUrl}
@@ -127,7 +162,7 @@ export default async function ProfilePage({
                                         height={400}
                                         className="object-cover w-full h-full"
                                     />
-                                    <div className="p-2 text-center text-xs sm:text-sm text-gray-700">
+                                    <div className="p-2 text-center text-xs sm:text-sm text-gray-700 bg-white">
                                         {plant.plantType.plantRegion.replace('_', ' ')}
                                     </div>
                                 </div>
