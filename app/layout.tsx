@@ -77,11 +77,6 @@ export default function RootLayout({
 
             {/* --- Desktop Nav --- */}
             <nav className="hidden sm:flex gap-3">
-              <Link href="/">
-                <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
-                  Home
-                </Button>
-              </Link>
               <Link href="/dashboard">
                 <Button variant="ghost" className="text-emerald-700 hover:text-emerald-900">
                   Dashboard
